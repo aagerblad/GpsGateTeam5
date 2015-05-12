@@ -2,6 +2,7 @@
 <html>
    <head>
        <title>Hackathon 2015</title>
+       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
        <script type="text/javascript" src="http://studs.gpsgate.com/Services/Core.ashx?xss2=true&deps=true"></script>
        <script type="text/javascript" src="geolocation.js"></script>
        <script>
@@ -68,9 +69,15 @@
        </script>
    </head>
    <body>
-        <input id="name" type="text" name="input" placeholder="What's your first name?">
-        <input id="familyname" type="text" name="input" placeholder="What's your family name?">
-        <input id="location" type="text" name="input" placeholder="Where you at?">
-        <button id="send_button"> Send </button>
+    <div class="container">
+        <form>
+        <div class="form-group">
+          <input id="name" type="text" class="form-control" name="input" placeholder="What's your first name?">
+          <input id="familyname" type="text" class="form-control" name="input" placeholder="What's your family name?">
+          <input id="location" type="text" class="form-control" name="input" placeholder="Where you at?">
+          <button id="send_button" class="btn btn-default"> Send </button>
+        </div
+      </form>
+    </div>
    </body>
 </html>
