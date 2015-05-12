@@ -35,9 +35,32 @@
             };
             
             function start(){
+                var button = jQuery("#send_button");
+                button.hide();
                 var myApp = new app();          
                 myApp.getUsersInTag('TeamA Tag');
-                GpsGate.Server.Hackathon.ReportPosition("t5test", "foo", "yooooo", "t5test", 0, 0);
+                navigator.geolocation.getCurrentPosition(function (position) {
+                  button.show();
+                  button.click(function (event) {
+                    console.log("wasdf");
+                    var name = jQuery("#name").val() + "_" + jQuery("#familyname").val();
+                    name = name.toLowerCase();
+                    var patt = /[^a-z0-9]/g;
+                    name = name.replace(patt,"");
+                    name = name.substring(0,15);
+
+                    var loc = jQuery("#location").val();
+                    loc = loc.toLowerCase();
+                    var patt = /[^a-z0-9]/g;
+                    loc = loc.replace(patt,"");
+                    loc = loc.substring(0,15);
+                    // console.log(name);
+                    GpsGate.Server.Hackathon.ReportPosition(name, "foo", loc, "T5", position.coords.longitude, position.coords.latitude);
+                    
+                  });
+                  // console.log(position);
+
+                });
             };
 
             jQuery(document).ready(start);
@@ -45,8 +68,9 @@
        </script>
    </head>
    <body>
-        <div>
-            Some UI stuff here...
-        </div>
+        <input id="name" type="text" name="input" placeholder="What's your first name?">
+        <input id="familyname" type="text" name="input" placeholder="What's your family name?">
+        <input id="location" type="text" name="input" placeholder="Where you at?">
+        <button id="send_button"> Send </button>
    </body>
 </html>
