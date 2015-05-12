@@ -43,7 +43,7 @@
                 navigator.geolocation.getCurrentPosition(function (position) {
                   button.show();
                   button.click(function (event) {
-                    console.log("wasdf");
+                    event.preventDefault;
                     var name = jQuery("#name").val() + "_" + jQuery("#familyname").val();
                     name = name.toLowerCase();
                     var patt = /[^a-z0-9]/g;
@@ -57,7 +57,7 @@
                     loc = loc.substring(0,15);
                     // console.log(name);
                     GpsGate.Server.Hackathon.ReportPosition(name, "foo", loc, "T5", position.coords.longitude, position.coords.latitude);
-                    
+                    window.location.href = "view.html?tag=T5";
                   });
                   // console.log(position);
 
@@ -70,12 +70,12 @@
    </head>
    <body>
     <div class="container">
-        <form>
+      <form method="view.html">
         <div class="form-group">
           <input id="name" type="text" class="form-control" name="input" placeholder="What's your first name?">
           <input id="familyname" type="text" class="form-control" name="input" placeholder="What's your family name?">
           <input id="location" type="text" class="form-control" name="input" placeholder="Where you at?">
-          <button id="send_button" class="btn btn-default"> Send </button>
+          <button id="send_button" type="button" class="btn btn-default"> Send </button>
         </div
       </form>
     </div>
