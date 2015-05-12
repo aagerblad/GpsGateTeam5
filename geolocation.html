@@ -4,6 +4,7 @@
        <meta name="viewport" content="width=device-width, initial-scale=1">
        <title>Hackathon 2015</title>
        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+       <link rel="stylesheet" type="text/css" href="main.css">
        <script type="text/javascript" src="http://studs.gpsgate.com/Services/Core.ashx?xss2=true&deps=true"></script>
        <script type="text/javascript" src="geolocation.js"></script>
        <script>
@@ -18,29 +19,9 @@
        </script>
         
        <script type="text/javascript">
-        
-            app = function() {
-                this.username = 'team5';
-                this.password = 'foo';
-            };
-                        
-            app.prototype.getUsersInTag = function(tag) {               
-                return GpsGate.Server.Hackathon.GetUsersInTag(tag).addCallbacks(
-                    function(result) {
-                        // Do something with the result
-                    },
-                    function(err) {
-                        // An error occured
-                        console.error(err);
-                    }
-                );
-            };
-            
             function start(){
                 var button = jQuery("#send_button");
                 button.hide();
-                var myApp = new app();          
-                myApp.getUsersInTag('TeamA Tag');
                 navigator.geolocation.getCurrentPosition(function (position) {
                   button.show();
                   button.click(function (event) {
@@ -60,8 +41,6 @@
                     GpsGate.Server.Hackathon.ReportPosition(name, "foo", loc, "T5", position.coords.longitude, position.coords.latitude);
                     window.location.href = "view.html?tag=T5";
                   });
-                  // console.log(position);
-
                 });
             };
 
