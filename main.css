@@ -2,3 +2,7 @@ body {
     background-image: url("fedtmedlog.jpg");
     background-repeat: repeat;
 }
+
+#thanks{
+	color: white;
+}

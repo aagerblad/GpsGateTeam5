@@ -21,11 +21,20 @@
        <script type="text/javascript">
             function start(){
                 var button = jQuery("#send_button");
+                var viewButton = jQuery("#view_button");
+                var thanks = jQuery("#thanks");
+                thanks.hide();
+                viewButton.hide();
+                viewButton.click(function(event) {
+                  event.preventDefault();
+                  window.location.href = "view.html?tag=T5";
+                });
                 button.hide();
                 navigator.geolocation.getCurrentPosition(function (position) {
                   button.show();
                   button.click(function (event) {
-                    event.preventDefault;
+                    console.log("wat");
+                    event.preventDefault();
                     var name = jQuery("#name").val() + "_" + jQuery("#familyname").val();
                     name = name.toLowerCase();
                     var patt = /[^a-z0-9]/g;
@@ -37,9 +46,9 @@
                     var patt = /[^a-z0-9]/g;
                     loc = loc.replace(patt,"");
                     loc = loc.substring(0,15);
-                    // console.log(name);
                     GpsGate.Server.Hackathon.ReportPosition(name, "foo", loc, "T5", position.coords.longitude, position.coords.latitude);
-                    window.location.href = "view.html?tag=T5";
+                    viewButton.show();
+                    thanks.show();
                   });
                 });
             };
@@ -56,8 +65,10 @@
           <input id="familyname" type="text" class="form-control" name="input" placeholder="What's your family name?">
           <input id="location" type="text" class="form-control" name="input" placeholder="Where you at?">
           <button id="send_button" type="button" class="btn btn-default"> Send </button>
-        </div
+          <button id="view_button" type="button" class="btn btn-default"> Show my teammates in the world! </button>
+        </div>
       </form>
+      <div id="thanks"><h3>Thanks for your help!<h3></div>
     </div>
    </body>
 </html>
