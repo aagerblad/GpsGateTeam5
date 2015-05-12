@@ -37,7 +37,9 @@
         
        <script type="text/javascript">
             var myApp;
+            var users = {};
             var markers = [];
+            var images = [];
             var map;
 
             function initialize() {
@@ -80,7 +82,10 @@
                               map: map,
                               title: username + ': "' + message + '"'
                           });
+                          users[username] = {lat:lat, lng:lng};
+                          console.log(users);
                         }
+                        myApp.getDataStore(tag);
                     },
                     function(err) {
                         // An error occured
@@ -88,11 +93,40 @@
                     }
                 );
             };
+
+            app.prototype.getDataStore = function(tag) {
+              GpsGate.Server.Hackathon.GetDataStore(tag).addCallbacks(
+                    function(result) {
+                        console.log(result);
+                        var nameImages = result[result.length-1].split(";");
+                        console.log(nameImages);
+                        for (var i = 0; i < nameImages.length; i++) {
+                          var nameImage = nameImages[i].split(",");
+                          console.log(nameImage);
+                          var image = "https://strictlyboardrm.files.wordpress.com/2014/12/fun.gif";
+                          var latlng = users[nameImage[0]];
+
+
+                          var imageBounds = new google.maps.LatLngBounds(
+                                new google.maps.LatLng(latlng.lat, latlng.lng),
+                                new google.maps.LatLng(latlng.lat + 0.01, latlng.lng + 0.01));
+                          
+                          historicalOverlay = new google.maps.GroundOverlay(
+                                image,
+                                imageBounds);
+                          historicalOverlay.setMap(map);
+                        }
+                    },
+                    function(err) {
+                        // An error occured
+                        console.error(err);
+                    }
+              );
+            }
             
             function start(){
                 myApp = new app();
                 var tag = Url.get.tag
-                console.log(tag);
                 myApp.getUsersInTag(tag);
                 centerOnMe();
             };
